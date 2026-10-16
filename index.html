@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#183b32">
+    <meta name="description" content="Un carnet de cuisine Cooklang qui reste disponible hors ligne.">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Mijote — carnet de cuisine</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigation principale">
+        <a class="brand" href="#" data-view="recipes" aria-label="Mijote, toutes les recettes">
+          <img src="/icon.svg" alt="" width="38" height="38">
+          <span>mijote<span class="brand-dot">.</span></span>
+        </a>
+        <p class="side-label">VOTRE CUISINE</p>
+        <nav class="primary-nav">
+          <button class="nav-item is-active" data-view="recipes"><span class="nav-glyph">▦</span> Toutes les recettes <span class="nav-count" id="recipe-count">0</span></button>
+          <button class="nav-item" data-view="favorites"><span class="nav-glyph">♡</span> Mes favorites</button>
+          <button class="nav-item" data-view="shopping"><span class="nav-glyph">☷</span> Liste de courses <span class="nav-count" id="shopping-count">0</span></button>
+        </nav>
+        <div class="side-divider"></div>
+        <p class="side-label">CATÉGORIES</p>
+        <nav class="category-nav" id="category-nav"></nav>
+        <div class="sidebar-bottom">
+          <button class="utility-button" id="import-button"><span>↥</span> Importer des recettes</button>
+          <button class="utility-button" id="export-button"><span>↧</span> Exporter mon carnet</button>
+          <input id="import-file" type="file" accept=".cook,.txt,.md,application/json" hidden>
+          <p class="offline-status"><span class="status-dot"></span> Disponible hors ligne</p>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="mobile-brand"><img src="/icon.svg" alt="" width="30" height="30"><span>mijote<span class="brand-dot">.</span></span></div>
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Chercher une recette, un ingrédient…" autocomplete="off"><kbd>/</kbd></label>
+          <button class="icon-button install-button" id="install-button" title="Installer Mijote" aria-label="Installer Mijote" hidden>⇩</button>
+          <button class="avatar" aria-label="Carnet local">M</button>
+        </header>
+        <section class="content" id="content" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <dialog class="recipe-dialog" id="recipe-dialog">
+      <form id="recipe-form" method="dialog">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">VOTRE CARNET</p><h2 id="dialog-title">Nouvelle recette</h2></div>
+          <button class="icon-button close-dialog" type="button" aria-label="Fermer">×</button>
+        </div>
+        <label class="field-label">Nom de la recette<input name="title" required maxlength="90" placeholder="Ex. Soupe de saison"></label>
+        <div class="field-row">
+          <label class="field-label">Catégorie<select name="category"><option>Plats</option><option>Petit-déjeuner</option><option>Desserts</option><option>Entrées</option><option>Boissons</option></select></label>
+          <label class="field-label">Portions<input name="servings" type="number" min="1" max="24" value="2"></label>
+        </div>
+        <label class="field-label">Une petite description<input name="description" maxlength="140" placeholder="Rapide, réconfortant, de saison…"></label>
+        <label class="field-label">Recette Cooklang<textarea name="body" required rows="10" placeholder="Faire revenir @oignon{1} dans @huile d'olive{2%càs}.&#10;Ajouter #timer{10%minutes} et servir."></textarea></label>
+        <div class="dialog-actions"><button class="secondary-button close-dialog" type="button">Annuler</button><button class="primary-button" type="submit">Enregistrer la recette</button></div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
